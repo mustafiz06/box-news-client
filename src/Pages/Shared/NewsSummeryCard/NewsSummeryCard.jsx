@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
-import { Button, Card, Image } from 'react-bootstrap';
+import { Card, Image } from 'react-bootstrap';
 import { FaBookmark, FaEye, FaShareAlt, FaStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-const News = () => {
-    const news= useLoaderData();
-    const {category_id,title, author, details, image_url, total_view, rating } = news;
+const NewsSummeryCard = ({ news }) => {
+    const { _id, title, author, details, image_url, total_view, rating } = news;
     const { img, published_date, name } = author;
     return (
         <div>
@@ -27,7 +26,12 @@ const News = () => {
                     <Card.Title>{title}</Card.Title>
                     <Card.Img variant="top" src={image_url} />
                     <Card.Text className='text-justify'>
+                        {
+                            details.length > 250 ?
+                                <p>{details.slice(0, 250) + "..."} <Link to={`/news/${_id}`}>Read more</Link></p>
+                                :
                                 <p>{details}</p>
+                        }
                     </Card.Text>
 
                 </Card.Body>
@@ -41,12 +45,9 @@ const News = () => {
                         <span className='ml-2'>{total_view}</span> 
                     </div>
                 </Card.Footer>
-                <Link to={`/category/${category_id}`}>
-                <Button variant='primary' className='my-3'>All news in this Category</Button>
-                </Link>
             </Card>
         </div>
     );
 };
 
-export default News;
+export default NewsSummeryCard;

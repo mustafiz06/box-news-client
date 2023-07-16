@@ -2,13 +2,13 @@ import React, { useContext, useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const {createUser, verifyEmail}= useContext(AuthContext);
     const [termsAccepted,setTermsAccepted]=useState(false)
     const [error, setError] = useState();
     const [registerSuccess, setRegisterSuccess] = useState();
-    const [verifyEmailSent, setVerifyEmailSent] = useState();
 
     const registerHandler= (event)=>{
         event.preventDefault();
@@ -19,6 +19,7 @@ const Register = () => {
         let photoURL = form.photoURL.value;
         form.reset();
         emailVerificationHandler();
+        toast.success('Verification email sent')
         console.log(name,email,password,photoURL);
         createUser(email, password)
             .then((userCredential) => {
@@ -36,7 +37,7 @@ const Register = () => {
 
     const emailVerificationHandler=()=>{
         verifyEmail()
-        .then(()=>setVerifyEmailSent('A verification link sent to your mail'))
+        .then(()=>{})
         .catch((err)=>console.warn(`Error while sending the verfication code ${err}`))
     }
     return (
@@ -44,7 +45,6 @@ const Register = () => {
             <Card style={{ width: '18rem' }}>
                 <Card.Body>
                     <Card.Title className='text-center'>Card Title</Card.Title>
-                    <span className='text-success'>{verifyEmailSent}</span>
 
                     <form onSubmit={registerHandler} className='d-flex flex-column '>
                         <input type="text" name='name' placeholder='Name' className='mb-2 px-3 py-2'/>

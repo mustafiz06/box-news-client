@@ -18,7 +18,7 @@ const Register = () => {
         form.reset();
         console.log(name,email,password);
         createUser(email, password)
-            .then((userCredential) => {g
+            .then((userCredential) => {
                 setRegisterSuccess("Successfully Registerd")
                 setError('')
             })

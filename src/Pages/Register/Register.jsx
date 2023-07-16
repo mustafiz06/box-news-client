@@ -3,8 +3,10 @@ import { Card, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { toast } from 'react-hot-toast';
+import useTitle from '../../Hooks/useTitle';
 
 const Register = () => {
+    useTitle('Register')
     const {createUser, verifyEmail}= useContext(AuthContext);
     const [termsAccepted,setTermsAccepted]=useState(false)
     const [error, setError] = useState();

@@ -2,8 +2,10 @@ import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { Button, Card, Image } from 'react-bootstrap';
 import { FaBookmark, FaEye, FaShareAlt, FaStar } from 'react-icons/fa';
+import useTitle from '../../Hooks/useTitle';
 
 const News = () => {
+    useTitle('News')
     const news= useLoaderData();
     const {category_id,title, author, details, image_url, total_view, rating } = news;
     const { img, published_date, name } = author;

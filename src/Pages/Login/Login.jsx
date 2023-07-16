@@ -3,9 +3,11 @@ import { Card } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 import { toast } from 'react-hot-toast';
+import useTitle from '../../Hooks/useTitle';
 
 const Login = () => {
     const { loginUser, user } = useContext(AuthContext);
+    useTitle('Login')
 
     //navigate for go to home page............................
     const navigate = useNavigate();

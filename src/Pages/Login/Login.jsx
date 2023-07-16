@@ -2,9 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
-    const { loginUser } = useContext(AuthContext);
+    const { loginUser, user } = useContext(AuthContext);
 
     //navigate for go to home page............................
     const navigate = useNavigate();
@@ -21,13 +22,18 @@ const Login = () => {
         let email = form.email.value;
         let password = form.password.value;
         form.reset();
-        //navigate for go to home page loaction....................................
-        navigate('/')
+        // navigate for go to home page loaction....................................
+        // navigate('/')
         // navigate(from, {replace: true})
         loginUser(email, password)
             .then((userCredential) => {
                 setLoginSuccess("Login Success")
                 setError('')
+                if (user.emailVerified) {
+                    navigate('/')
+                } else {
+                    toast.error("You are not verified yet")
+                }
             })
             .catch((error) => {
                 setError("Invalid Email or Password")
